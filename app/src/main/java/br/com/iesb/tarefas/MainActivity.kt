@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,13 +21,17 @@ class MainActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
 
-        recyclerView.adapter
+        recyclerView.adapter = TarefaAdapter(TarefaService.carregarTarefasFake(), object : TarefaAdapter.TarefaListener {
+            override fun onClickTarefa(view: View?, position: Int) {
+                val tarefa = TarefaService.carregarTarefasFake()[position]
 
-        val teste = TarefaService.carregarTarefasFake()
+                Toast.makeText(this@MainActivity, "Minha Tarefa: ${tarefa.descricao}", Toast.LENGTH_LONG).show()
+            }
+        })
 
         addButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
-                Toast.makeText(this@MainActivity, teste[2].descricao, Toast.LENGTH_LONG).show()
+
             }
         })
     }
