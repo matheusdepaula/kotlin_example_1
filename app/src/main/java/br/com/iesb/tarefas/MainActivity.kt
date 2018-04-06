@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
 
+        recyclerView.adapter
+
         val teste = TarefaService.carregarTarefasFake()
 
         addButton.setOnClickListener(object : View.OnClickListener{
