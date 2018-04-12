@@ -11,7 +11,7 @@ import java.util.*
 /**
  * Created by matheus.psousa on 05/04/2018.
  */
-class TarefaAdapter(var listaTarefas : MutableList<Tarefa>, val tarefaListener: TarefaListener) : RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder>() {
+class TarefaAdapter(var listaTarefas : MutableList<Tarefa>, val onClickTarefa : (View?, Int) -> Unit) : RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder>() {//, val tarefaListener: TarefaListener) : RecyclerView.Adapter<TarefaAdapter.TarefaViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TarefaViewHolder {//Inflate a XML and Return
@@ -38,8 +38,9 @@ class TarefaAdapter(var listaTarefas : MutableList<Tarefa>, val tarefaListener: 
         view?.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
 
-                tarefaListener.onClickTarefa(view, position)
+//                tarefaListener.onClickTarefa(view, position)
 
+                onClickTarefa(view, position)
 //                val tarefa = Tarefa(view?.tarefaTextView.text.toString(), Date())
 //                TarefaService.cadastrarTarefa(tarefa)
 //                Toast.makeText(this@MainActivity, teste[2].descricao, Toast.LENGTH_LONG).show()

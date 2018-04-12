@@ -19,13 +19,20 @@ class MainActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
 
-        recyclerView.adapter = TarefaAdapter(TarefaService.consultarTarefas(), object : TarefaAdapter.TarefaListener {
-            override fun onClickTarefa(view: View?, position: Int) {
-                val tarefa = TarefaService.consultarTarefas()[position]
+        recyclerView.adapter = TarefaAdapter(TarefaService.consultarTarefas(), { view, i ->
 
-                Toast.makeText(this@MainActivity, "Minha Tarefa: ${tarefa.descricao}", Toast.LENGTH_LONG).show()
-            }
+            val tarefa = TarefaService.consultarTarefas()[i]
+
+            Toast.makeText(this@MainActivity, "Minha Tarefa: ${tarefa.descricao}", Toast.LENGTH_LONG).show()
         })
+
+//        recyclerView.adapter = TarefaAdapter(TarefaService.consultarTarefas(), object : TarefaAdapter.TarefaListener {
+//            override fun onClickTarefa(view: View?, position: Int) {
+//                val tarefa = TarefaService.consultarTarefas()[position]
+//
+//                Toast.makeText(this@MainActivity, "Minha Tarefa: ${tarefa.descricao}", Toast.LENGTH_LONG).show()
+//            }
+//        })
 
         addButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
