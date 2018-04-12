@@ -11,8 +11,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var listaTarefa : MutableList<Tarefa> = mutableListOf()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,9 +19,9 @@ class MainActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
 
-        recyclerView.adapter = TarefaAdapter(TarefaService.carregarTarefasFake(), object : TarefaAdapter.TarefaListener {
+        recyclerView.adapter = TarefaAdapter(TarefaService.consultarTarefas(), object : TarefaAdapter.TarefaListener {
             override fun onClickTarefa(view: View?, position: Int) {
-                val tarefa = TarefaService.carregarTarefasFake()[position]
+                val tarefa = TarefaService.consultarTarefas()[position]
 
                 Toast.makeText(this@MainActivity, "Minha Tarefa: ${tarefa.descricao}", Toast.LENGTH_LONG).show()
             }
@@ -32,6 +30,18 @@ class MainActivity : AppCompatActivity() {
         addButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
 
+                if (tarefaTextView.text.isEmpty()) {
+                    Toast.makeText(this@MainActivity, "Digite a descrição da tarefa", Toast.LENGTH_LONG).show()
+                    return
+                }
+
+                val descricaoUsuario = tarefaTextView.text.toString()
+                val tarefa = Tarefa(descricaoUsuario, Date())
+                TarefaService.cadastrarTarefa(tarefa)
+
+                recyclerView.adapter.notifyItemInserted(TarefaService.consultarTarefas().count() - 1)
+
+                tarefaTextView.text.clear()
             }
         })
     }

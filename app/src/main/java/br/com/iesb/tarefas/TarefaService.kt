@@ -22,7 +22,7 @@ class TarefaService {
         fun carregarTarefasFake() : MutableList<Tarefa> {
 
             var listaTemp = mutableListOf<Tarefa>()
-            for (i in 1 .. 26) listaTemp.add(obterTarefaFake(i))
+            for (i in 1 .. 6) listaTemp.add(obterTarefaFake(i))
 
             return listaTemp
         }
